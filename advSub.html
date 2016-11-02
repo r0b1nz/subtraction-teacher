@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Basic N-Digit Subtraction</title>
+	<meta charset="utf-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/notebook.css">
+    <link rel="stylesheet" href="css/animate.css">
+  	<script src="js/jquery.min.js"></script>
+  	<script src="js/bootstrap.min.js"></script>
+
+  	<style type="text/css">
+
+  		.table { width: 100px;
+  				 overflow; 
+  				 hidden;
+  				}
+  		th{
+			font-size: 20px;
+  		}
+  		td{
+			font-size: 30px;
+  		}
+  	</style>
+
+</head>
+<body>
+<center>
+
+<div class="container paper animated fadeInRight" style="padding: 50px">
+	<h2>Basic Subtraction</h2>
+	<p>Required to understand the subtraction of 2-Digit or more than 2-Digit numbers.</p>
+	<div class="row text col-lg-4 animated fadeIn">
+		
+		<p><h3>Instructions</h3>
+			<strong>1) </strong>Carry: A carry is generated when we subtract <strong>More</strong> from <strong>Less</strong>
+			<br><br><strong>2) </strong> Carry is denoted in <strong>Light red</strong> background when you view the answer.
+			<br><br><strong>3) </strong> A <strong><kbd>Carry = 0</kbd></strong> when we subtract <strong>Less</strong> from <strong>More</strong>.
+			<br><br><strong>4) </strong> <strong><kbd>Carry = 10+(Lesser Digit)</kbd></strong>, When we subtract <strong>More</strong> from <strong>Less</strong>, Also <strong><kbd>1</kbd></strong> is subtracted from the <strong>bigger digit</strong>.
+
+		</p>
+		<br><h2>Steps</h2><br>
+		<p>Subtract from the <u>Last column</u> <br>
+		Column 1--> <strong>
+		<kbd><label id="l1"></label> - <label id="l2"></label></strong></kbd>, Carry generated = <kbd><label id="carry1"></label></kbd> <br>
+		Therefore Subtract <kbd><label id="top1"></label> - <label id="top11"></label> = <label id="a11"></label></kbd> <strong>(Unit Digit)</strong>
+		<br>
+		Then Do,<br>Column 2--> <kbd><strong><label id="l11"></label> - <label id="l22"></label></strong></kbd>, Carry generated = <kbd><label id="carry2"></label></kbd>
+		<br>
+		Therefore Subtract <kbd><label id="top2"></label> - <label id="top22"></label> = <label id="a22"></label></kbd> <strong>(Ten's Digit)</strong>
+		</p> 
+	</div>
+	<div class="row col-lg-1">
+		<br><br><br><br><br><br><br><br><br><br><br><h1 style="text-align: right">-</h1>
+	</div>
+	<table class="table responsive table-hover col-lg-7	 animated zoomIn" width="100px" style="margin: 50px">
+		<thead>
+			<tr>
+				<th>10's Digit</th>
+				<th>Unit Digit</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="danger">
+				<td id="c2" style="visibility: hidden">
+					c2
+				</td>
+				<td id="c1" style="visibility: hidden">
+					c1
+				</td>
+			</tr>
+			<tr class="primary">
+				<td id="n2"> <!-- style=" text-decoration: line-through;"> -->
+					n2
+				</td>
+				<td id="n1">
+					n1
+				</td>
+			</tr>
+			<tr class="primary" style="border-bottom: 3px solid #000;"">
+				<td id="p2">
+					p2
+				</td>
+				<td id="p1">
+					p1
+				</td>
+			</tr>
+			<tr class="success">
+				<td id="a2" style="visibility: hidden">
+					a2
+				</td>
+				<td id="a1" style="visibility: hidden">
+					a1
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+	<div class="row"><center><button class="btn btn-success btn-lg col-lg-12 animated zoomIn" onclick="calculate();" style="width: 200px; height: 300px; margin-top: 50px">Show Answer</button>
+	<button class="btn btn-info btn-lg col-lg-12 animated zoomIn" onclick="next();" style="width: 200px; height: 300px; margin-top: 50px; margin-left: 20px">Next Example</button></center></div>
+	        <div class="row col-lg-12">
+            <button class="btn btn-danger btn-lg" style="margin-left: 90%" onclick="location.href='main.php'">Go Back</button>
+            <!-- <p class="text-right"></p> -->
+        </div>
+</div>
+
+</center>
+
+<script type="text/javascript">
+	function toNum(numb) {
+		if(numb<10)
+			return "0" + numb;
+		else
+			return numb;
+	}
+
+	function showCarry(){
+	document.getElementById("c1").style.visibility = "visible";
+	document.getElementById("c2").style.visibility = "visible";
+	}
+
+	function calculate(){
+		document.getElementById("a1").innerHTML = (num1-num2)%10;
+		document.getElementById("a2").innerHTML = parseInt(((num1-num2)/10))%10;
+		document.getElementById("a1").style.visibility = "visible";
+		document.getElementById("a2").style.visibility = "visible";
+		if((num1%10)<(num2%10)){
+			document.getElementById("c1").innerHTML = "1" + num1%10;
+			document.getElementById("c2").innerHTML = parseInt(num1/10)%10 - 1;
+		}else{
+			document.getElementById("c2").innerHTML = "0";	
+			document.getElementById("c1").innerHTML = "0";
+		}
+		document.getElementById("c1").style.visibility = "visible";
+		document.getElementById("c2").style.visibility = "visible";
+	}
+
+	function next(){
+		document.getElementById("c1").style.visibility = "hidden";
+		document.getElementById("c2").style.visibility = "hidden";
+		document.getElementById("a1").style.visibility = "hidden";
+		document.getElementById("a2").style.visibility = "hidden";
+		do{
+			num1 = parseInt((Math.random()*100000))%100;
+			num2 = parseInt((Math.random()*100000))%100;
+		}while(num1<num2 || (num1%10<num2%10));
+		document.getElementById("n1").innerHTML = num1%10;
+		document.getElementById("n2").innerHTML = parseInt((num1/10))%10;
+		
+		document.getElementById("p1").innerHTML = num2%10;
+		document.getElementById("p2").innerHTML = parseInt((num2/10))%10;
+		// Tutorial
+		document.getElementById("l1").innerHTML = num1%10;
+		document.getElementById("l2").innerHTML = num2%10;
+
+		document.getElementById("l11").innerHTML = parseInt((num1/10))%10;
+		document.getElementById("l22").innerHTML = parseInt((num2/10))%10;
+		
+		if((num1%10)<(num2%10)){
+			document.getElementById("carry1").innerHTML = "1" + num1%10;
+			document.getElementById("carry2").innerHTML = parseInt(num1/10)%10 - 1;
+			document.getElementById("top1").innerHTML = "1" + num1%10;
+			document.getElementById("top2").innerHTML = parseInt(num1/10)%10 - 1;
+			document.getElementById("top11").innerHTML = num2%10;
+			document.getElementById("top22").innerHTML = parseInt((num2/10))%10;
+			document.getElementById("a11").innerHTML = (num1-num2)%10;
+			document.getElementById("a22").innerHTML = parseInt(((num1-num2)/10))%10;
+		}else{
+			document.getElementById("carry1").innerHTML = "0";	
+			document.getElementById("carry2").innerHTML = "0";
+			document.getElementById("top1").innerHTML = num1%10;
+			document.getElementById("top2").innerHTML = parseInt(num1/10)%10;
+			document.getElementById("top11").innerHTML = num2%10;
+			document.getElementById("top22").innerHTML = parseInt((num2/10))%10;
+			document.getElementById("a11").innerHTML = (num1-num2)%10;
+			document.getElementById("a22").innerHTML = parseInt(((num1-num2)/10))%10;
+		}
+
+
+
+	}
+
+	// var num1 = parseInt((Math.random()*100000))%100;
+	// var num2 = parseInt((Math.random()*100000))%100;
+	var num1,num2;
+	do{
+		num1 = parseInt((Math.random()*100000))%100;
+		num2 = parseInt((Math.random()*100000))%100;
+	}while(num1<num2 || (num1%10<num2%10));
+
+
+	// Level 1 High - Low // No Borrow
+	// if(num1<num2){
+	// 	var temp = num1;
+	// 	num1 = num2;
+	// 	num2 = temp;
+	// }
+
+	console.log(num1, num2);
+	// Level Adv
+	// if((num1%10)>(num2%10) && num1>num2{
+	// 	var temp = num1;
+	// 	num1 = num2;
+	// 	num2 = temp;
+	// }
+
+	document.getElementById("n1").innerHTML = num1%10;
+	document.getElementById("n2").innerHTML = parseInt((num1/10))%10;
+	
+	document.getElementById("p1").innerHTML = num2%10;
+	document.getElementById("p2").innerHTML = parseInt((num2/10))%10;
+	
+	document.getElementById("l1").innerHTML = num1%10;
+	document.getElementById("l2").innerHTML = num2%10;
+
+	document.getElementById("l11").innerHTML = parseInt((num1/10))%10;
+	document.getElementById("l22").innerHTML = parseInt((num2/10))%10;
+	
+	if((num1%10)<(num2%10)){
+		document.getElementById("carry1").innerHTML = "1" + num1%10;
+		document.getElementById("carry2").innerHTML = parseInt(num1/10)%10 - 1;
+			document.getElementById("top1").innerHTML = "1" + num1%10;
+			document.getElementById("top2").innerHTML = parseInt(num1/10)%10 - 1;
+			document.getElementById("top11").innerHTML = num2%10;
+			document.getElementById("top22").innerHTML = parseInt((num2/10))%10;
+			document.getElementById("a11").innerHTML = (num1-num2)%10;
+			document.getElementById("a22").innerHTML = parseInt(((num1-num2)/10))%10;
+	}else{
+		document.getElementById("carry1").innerHTML = "0";	
+		document.getElementById("carry2").innerHTML = "0";
+			document.getElementById("top1").innerHTML = num1%10;
+			document.getElementById("top2").innerHTML = parseInt(num1/10)%10;
+			document.getElementById("top11").innerHTML = num2%10;
+			document.getElementById("top22").innerHTML = parseInt((num2/10))%10;
+			document.getElementById("a11").innerHTML = (num1-num2)%10;
+			document.getElementById("a22").innerHTML = parseInt(((num1-num2)/10))%10;
+	}
+	
+
+	// document.getElementById("c1").innerHTML = "0";
+	// document.getElementById("c2").innerHTML = "0"
+	
+
+
+	console.log(toNum(10));
+
+</script>
+
+</body>
+</html>
